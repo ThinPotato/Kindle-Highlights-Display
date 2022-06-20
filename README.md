@@ -1,5 +1,5 @@
 # Kindle-Highlights-Display
-This is the software repository for my highlights project. This repo has two parts. The first being a webcrawler that downloads and saves your highlgihts from the amazon website. The second being the software behind the physical display. It chooses a random highlight, uses an API to download additional information (such as book name, author, cover art, etc.) And displays it into a webpage to be loaded by the Raspberry pi powering the E-ink display.
+This is the software repository for my highlights project. This repo has two parts. The first being a webcrawler that downloads and saves your highlgihts from the amazon website. The second being the software behind the physical display. It chooses a random highlight, uses an API to download additional information (such as book name, author, cover art, etc.) And displays it into a PIL image to be loaded by the Raspberry pi powering the E-ink display.
 
 ## Features
 
