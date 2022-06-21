@@ -4,7 +4,7 @@ This is the software repository for my highlights project. This repo has two par
 ## Features
 
  - [X] Download highlights & additional data from [here](https://read.amazon.com/kp/notebook)
- - [ ] Randomly select highlights
- - [ ] Load additional data
+ - [X] Randomly select highlights
+ - [X] Load additional data
  - [ ] Display data by creating images using PIL
  - [ ] Raspberry pi auto loads highlights on boot up
