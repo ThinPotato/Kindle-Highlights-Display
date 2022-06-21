@@ -7,8 +7,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import re
 
-USERNAME = "USERNAME"
-PASSWORD = "PASSWORD"
+f = open("credentials.txt", "r")
+lines = f.readlines()
+USERNAME = lines[0]
+PASSWORD = lines[1]
 driver = webdriver.Chrome()
 driver.set_window_size(1000, 3000)
 driver.get("https://read.amazon.com/kp/notebook")
@@ -23,9 +25,11 @@ finally:
     elem.send_keys(USERNAME)
     elem = driver.find_element(By.ID, value="ap_password")
     elem.send_keys(PASSWORD)
+    time.sleep(7)
     elem.send_keys(Keys.RETURN)
 
 print("logged in")
+
 
 # Load list of books
 elem = driver.find_element(
@@ -41,7 +45,9 @@ for book in books:
     try:
         book.click()
         parsedHighlights = []
-        time.sleep(1)
+        time.sleep(1.5)
+        bookCover = book.find_element(
+            By.CLASS_NAME, value="kp-notebook-cover-image").get_attribute("src")
         highlightWrapper = elem.find_element(
             By.XPATH, value="//*[@id=\"kp-notebook-annotations\"]")
         highlights = highlightWrapper.find_elements(
@@ -55,9 +61,20 @@ for book in books:
             else:
                 print("fake")
         coverData = book.text.split("By:")
-        newBook = {"title": coverData[0],
-                   "Author": coverData[1],
-                   "highlights": parsedHighlights}
+        titles = re.split(string=coverData[0], pattern=": ")
+        bookCoverHD = re.sub(string=bookCover, pattern="SY160", repl="SY500")
+        if (len(titles) > 1):
+            newBook = {"title": titles[0],
+                       "subtitle": titles[1],
+                       "author": coverData[1],
+                       "cover": bookCoverHD,
+                       "highlights": parsedHighlights}
+        else:
+            newBook = {"title": titles[0],
+                       "subtitle": '',
+                       "author": coverData[1],
+                       "cover": bookCoverHD,
+                       "highlights": parsedHighlights}
         parsedBooks.append(newBook)
         print("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n")
     except:
@@ -66,4 +83,3 @@ for book in books:
 json_object = json.dumps(parsedBooks, indent=4)
 with open("books.json", "w") as outfile:
     outfile.write(json_object)
-print("test")
