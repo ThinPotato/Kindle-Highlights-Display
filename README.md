@@ -8,3 +8,7 @@ This is the software repository for my highlights project. This repo has two par
  - [X] Load additional data
  - [ ] Display data by creating images using PIL
  - [ ] Raspberry pi auto loads highlights on boot up
+
+## Output Example
+<img width="796" alt="image" src="https://user-images.githubusercontent.com/41706121/174710797-2c6eeae1-f2c3-40c1-9ea1-276ed9c5c11d.png">
+
