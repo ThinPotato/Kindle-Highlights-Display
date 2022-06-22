@@ -27,18 +27,21 @@ d.multiline_text(
 # Load subtitle
 vertical_pixels = vertical_pixels + padding + 30
 subtitle_fnt = ImageFont.truetype("bodoni-72-oldstyle-bold.ttf", 22)
-subtitle_text = textwrap.fill(text=book["subtitle"], width=70, max_lines=1)
+subtitle_text = textwrap.fill(
+    text=book["subtitle"], width=65, max_lines=1, placeholder="...")
 subtitle_size = d.multiline_textsize(
     text=book["subtitle"], font=subtitle_fnt, spacing=25)
 # Load Author
 author_fnt = ImageFont.truetype("bodoni-72-oldstyle-book.ttf", 22)
 print(subtitle_size[0])
 if(subtitle_size[0] < 600):
-    author_text = textwrap.fill(text=book["author"], width=70, max_lines=1)
+    author_text = textwrap.fill(
+        text=book["author"], width=70, max_lines=1, placeholder="...")
     d.text((subtitle_size[0] + 32, vertical_pixels),
            "By " + author_text, font=author_fnt, fill=(0, 0, 0), align='center', spacing=25)
 else:
-    author_text = textwrap.fill(text=book["author"], width=30, max_lines=1)
+    author_text = textwrap.fill(
+        text=book["author"], width=23, max_lines=1, placeholder="...")
     d.text((subtitle_size[0] - 105, vertical_pixels),
            "By " + author_text, font=author_fnt, fill=(0, 0, 0), align='center', spacing=25)
 
@@ -54,7 +57,8 @@ d.line(shape, fill="Grey", width=0)
 # Load Highlight
 fnt = ImageFont.truetype("georgia.ttf", 28)
 highlight = random.choice(book['highlights'])
-text = textwrap.fill(text="\"" + highlight + "\"", width=40, max_lines=7)
+text = textwrap.fill(text="\"" + highlight + "\"",
+                     width=40, max_lines=7, placeholder="...\"")
 
 vertical_pixels = 240 + 30
 d.multiline_text((273, vertical_pixels),
