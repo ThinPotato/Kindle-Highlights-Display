@@ -28,9 +28,22 @@ d.multiline_text(
 vertical_pixels = vertical_pixels + padding + 30
 subtitle_fnt = ImageFont.truetype("bodoni-72-oldstyle-bold.ttf", 22)
 subtitle_text = textwrap.fill(text=book["subtitle"], width=70, max_lines=1)
+subtitle_size = d.multiline_textsize(
+    text=book["subtitle"], font=subtitle_fnt, spacing=25)
 # Load Author
 author_fnt = ImageFont.truetype("bodoni-72-oldstyle-book.ttf", 22)
-# load subtitle and author
+print(subtitle_size[0])
+if(subtitle_size[0] < 600):
+    author_text = textwrap.fill(text=book["author"], width=70, max_lines=1)
+    d.text((subtitle_size[0] + 32, vertical_pixels),
+           "By " + author_text, font=author_fnt, fill=(0, 0, 0), align='center', spacing=25)
+else:
+    author_text = textwrap.fill(text=book["author"], width=30, max_lines=1)
+    d.text((subtitle_size[0] - 105, vertical_pixels),
+           "By " + author_text, font=author_fnt, fill=(0, 0, 0), align='center', spacing=25)
+
+
+# load subtitle
 d.multiline_text((20, vertical_pixels),
                  subtitle_text, font=subtitle_fnt, fill=(65, 56, 57))
 
@@ -47,9 +60,6 @@ vertical_pixels = 240 + 30
 d.multiline_text((273, vertical_pixels),
                  text, font=fnt, fill=(0, 0, 0), align='center', anchor="mm", spacing=25)
 
-# Load Author
-d.text((280, vertical_pixels + 190),
-       book["author"], font=author_fnt, fill=(0, 0, 0), align='center', anchor="mb", spacing=25)
 
 # Download and place image
 response = requests.get(book["cover"])
