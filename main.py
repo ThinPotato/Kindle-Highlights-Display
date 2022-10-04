@@ -20,7 +20,8 @@ book = random.choice(books)
 
 # Load Title
 title_fnt = ImageFont.truetype("bodoni-72-oldstyle-bold.ttf", 40)
-title_text = textwrap.fill(text=book["title"], width=40, max_lines=1)
+title_text = textwrap.fill(
+    text=book["title"], width=40, max_lines=1, placeholder="...")
 d.multiline_text(
     (20, vertical_pixels), title_text, font=title_fnt, fill=(65, 56, 57))
 
@@ -68,6 +69,10 @@ d.multiline_text((273, vertical_pixels),
 # Download and place image
 response = requests.get(book["cover"])
 img = Image.open(BytesIO(response.content)).convert("L")
+width = int(img.size[0]/1.5)
+height = int(img.size[1]/1.5)
+resized = (width, height)
+img = img.resize(resized)
 out.paste(img, (550, 110))
 
 out.show()
